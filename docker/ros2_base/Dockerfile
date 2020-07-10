@@ -46,8 +46,8 @@ RUN apt-get update && apt-get update && apt-get install -y \
 
 RUN rosdep init && rosdep fix-permissions && rosdep update
 
-COPY dotbashrc /root/dotbashrc
-COPY dottmux.conf /root/.tmux.conf
+COPY ros2_base/dotbashrc /root/dotbashrc
+COPY ros2_base/dottmux.conf /root/.tmux.conf
 
 RUN echo 'export RUN_TMUX=true' >> ~/.bashrc
 RUN echo 'source /root/dotbashrc' >> ~/.bashrc
