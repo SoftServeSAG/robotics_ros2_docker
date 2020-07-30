@@ -7,7 +7,7 @@ ENV TZ=Europe/Kiev
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Distribution of ROS2
-ARG distro="dashing"
+ARG distro="foxy"
 
 # Specify the distribution of ROS2
 ENV ROS_DISTRO $distro
