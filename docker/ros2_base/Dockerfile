@@ -4,8 +4,12 @@ FROM nvidia/cuda:11.0-devel-ubuntu20.04
 WORKDIR /root
 
 # set tzdata and timezone to avoid build stuck
-ENV TZ=Europe/Kiev
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#ENV TZ=Europe/Kiev
+#RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN locale-gen en_US en_US.UTF-8
+RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+RUN export LANG=en_US.UTF-8
 
 # Distribution of ROS2
 ARG distro="foxy"
@@ -40,8 +44,8 @@ RUN sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
-RUN apt-get update && apt-get update && apt-get install -y \
-    ros-$ROS_DISTRO-ros-desktop \
+RUN apt-get update && apt-get upgrade && apt-get install -y \
+    ros-foxy-desktop \
     python3-catkin-pkg \
     python3-rospkg \
     python3-colcon-common-extensions \
