@@ -1,4 +1,5 @@
-FROM nvidia/opengl:1.0-glvnd-devel-ubuntu20.04
+#FROM nvidia/opengl:1.0-glvnd-devel-ubuntu20.04
+FROM nvidia/cuda:11.0-devel-ubuntu20.04
 
 WORKDIR /root
 
