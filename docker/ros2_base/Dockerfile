@@ -52,7 +52,7 @@ RUN sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
-RUN apt-get update && apt-get upgrade && apt-get install -y \
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
     ros-$ROS_DISTRO-desktop \
     python3-catkin-pkg \
     python3-rospkg \
