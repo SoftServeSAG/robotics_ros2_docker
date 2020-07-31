@@ -3,6 +3,10 @@ FROM nvidia/cuda:11.0-devel-ubuntu20.04
 
 WORKDIR /root
 
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+ENV TERM linux
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN apt-get clean && apt-get update && apt-get install -y locales
 # set tzdata and timezone to avoid build stuck
 #ENV TZ=Europe/Kiev
@@ -18,7 +22,10 @@ ARG distro="foxy"
 # Specify the distribution of ROS2
 ENV ROS_DISTRO $distro
 
-RUN apt-get update -y && apt-get install -y \
+#alternativelly this might be placed before apt-get when installing
+#DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update -y &&  apt-get install -y \
     vim \
     tmux \
     tmuxinator \
@@ -46,7 +53,7 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main"
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
 RUN apt-get update && apt-get upgrade && apt-get install -y \
-    ros-foxy-desktop \
+    ros-$ROS_DISTRO-desktop \
     python3-catkin-pkg \
     python3-rospkg \
     python3-colcon-common-extensions \
